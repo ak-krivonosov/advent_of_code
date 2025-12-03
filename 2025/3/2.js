@@ -15,9 +15,14 @@ const getBiggestUnit = (line, depth) => {
   if (storedValue) return storedValue
 
   let result = 0
+  let biggestFirstDigit = 0
 
   for (let i = 0; i < line.length; i++) {
     const firstDigit = line[i]
+
+    if (+firstDigit < biggestFirstDigit) continue
+
+    biggestFirstDigit = Math.max(biggestFirstDigit, +firstDigit)
 
     if (depth > 1 && i !== line.length - 1) {
       result = Math.max(result, +(firstDigit + getBiggestUnit(line.substring(i + 1), depth - 1)))
