@@ -6,13 +6,11 @@ const data = file.split("\n")
 
 const store = new Map()
 
-const getKey = (line, depth) => `${line}+${depth}`
-
 const getBiggestUnit = (line, depth) => {
-  const key = getKey(line, depth)
-  const storedValue = store.get(key)
+  const key = `${line}+${depth}`
 
-  if (storedValue) return storedValue
+  if (store.has(key)) return store.get(key)
+  if (line.length === depth) return +line
 
   let result = 0
   let biggestFirstDigit = 0
@@ -21,7 +19,6 @@ const getBiggestUnit = (line, depth) => {
     const firstDigit = line[i]
 
     if (+firstDigit < biggestFirstDigit) continue
-
     biggestFirstDigit = Math.max(biggestFirstDigit, +firstDigit)
 
     if (depth > 1 && i !== line.length - 1) {
@@ -37,5 +34,4 @@ const getBiggestUnit = (line, depth) => {
 }
 
 const finish = data.reduce((acc, line) => acc + getBiggestUnit(line, 12), 0)
-
 console.log("🚀🚀🚀 ~ finish:", finish === 167384358365132)
