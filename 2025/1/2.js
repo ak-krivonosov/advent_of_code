@@ -10,26 +10,22 @@ let finish = 0
 data.reduce((acc, input) => {
   const value = input.startsWith("L") ? -input.substring(1) : +input.substring(1)
 
-  const end = (acc + value + 100) % 100
-  const turns = Math.abs(Math.floor((acc + value) / 100))
-  const amountOfOverZero = acc === 0 && value < 0 ? Math.max(0, turns - 1) : turns
+  const end = (((acc + value) % 100) + 100) % 100
+  let turns = Math.floor(Math.abs(acc + value) / 100)
 
-  finish += amountOfOverZero
-
-  if (end === 0 && amountOfOverZero === 0) {
+  if (end === 0) {
     finish++
+
+    turns = Math.max(0, turns - 1)
   }
 
-  // if (amountOfOverZero === 0 && end !== 0) {
-  console.log("\n\n🚀🚀🚀 ~ acc:", acc)
-  console.log("🚀🚀🚀 ~ value:", value)
-  console.log("🚀🚀🚀 ~ acc + value:", acc + value)
-  console.log("🚀🚀🚀 ~ end:", end)
-  console.log("🚀🚀🚀 ~ amountOfOverZero:", amountOfOverZero)
-  console.log("🚀🚀🚀 ~ finish:", finish)
-  // }
+  finish += turns
+
+  if (acc !== 0 && acc + value < 0) {
+    finish++
+  }
 
   return end
 }, 50)
 
-console.log("🚀🚀🚀 ~ finish:", finish, 5963)
+console.assert(finish === 5963, "🚀🚀🚀 ~ finish:", "Result is not equal to 5963")
