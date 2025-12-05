@@ -28,4 +28,4 @@ data.reduce((acc, input) => {
   return end
 }, 50)
 
-console.assert(finish === 5963, "🚀🚀🚀 ~ finish:", "Result is not equal to 5963")
+console.assert(finish === 5963, `❌ Incorrect: got ${finish}`)
