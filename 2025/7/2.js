@@ -16,13 +16,13 @@ const getAmountOfTimeLines = (pointX, pointY, value = 0) => {
   if (store.has(key)) return store.get(key)
 
   for (let y = pointY + 1; y < data.length; y++) {
-    if (data[y][pointX] === "^") {
-      const amount = getAmountOfTimeLines(pointX - 1, y, value + 1) + getAmountOfTimeLines(pointX + 1, y, value + 1)
+    if (data[y][pointX] !== "^") continue
 
-      store.set(key, amount)
+    const amount = getAmountOfTimeLines(pointX - 1, y, value + 1) + getAmountOfTimeLines(pointX + 1, y, value + 1)
 
-      return amount
-    }
+    store.set(key, amount)
+
+    return amount
   }
 
   return 1

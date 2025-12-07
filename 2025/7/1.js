@@ -15,36 +15,28 @@ const start = {
 }
 console.log("🚀🚀🚀 ~ start:", start)
 
-// logData(data)
-
 const result = new Set()
 
 const store = new Set()
 const drawLine = from => {
   const key = `x=${from.x}:y=${from.y}`
-
   if (store.has(key)) return
-
   store.add(key)
 
   for (let y = from.y + 1; y < data.length; y++) {
-    const cell = data[y][from.x]
+    if (data[y][from.x] !== "^") continue
 
-    if (cell === ".") {
-      data[y][from.x] = "|"
-    } else if (cell === "^") {
-      result.add(`x=${from.x}:y=${y}`)
+    result.add(`x=${from.x}:y=${y}`)
 
-      drawLine({
-        x: from.x - 1,
-        y,
-      })
-      drawLine({
-        x: from.x + 1,
-        y,
-      })
-      break
-    }
+    drawLine({
+      x: from.x - 1,
+      y,
+    })
+    drawLine({
+      x: from.x + 1,
+      y,
+    })
+    break
 
     // logData(data)
   }
