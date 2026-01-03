@@ -11,16 +11,10 @@ rawData.forEach((line) => {
   data.set(input.slice(0, -1), output)
 })
 
-const countOuts = (input, visitedInputs = []) => {
-  if (input === 'out') return 1
-  if (visitedInputs.includes(input)) return 0
-  visitedInputs.push(input)
+const count = (src, dst) => {
+  if (src === dst) return 1
 
-  return data.get(input).reduce((acc, output) => acc + countOuts(output), 0)
+  return data.get(src).reduce((acc, output) => acc + count(output, dst), 0)
 }
 
-const result = data.get('you').reduce((acc, input) => {
-
-  return acc + countOuts(input)
-}, 0)
-console.log("🚀🚀 ~ result:", result)
+console.log(count('you', 'out'))
